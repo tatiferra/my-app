@@ -1,25 +1,43 @@
 import logo from './logo.svg';
 import './App.css';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-function App() {
+function MyButton({textoBoton}) {
+  return (
+    <button>{textoBoton}</button>
+  );
+}
+
+function MyButtonMUI({textoBoton, colorBoton}) {
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/registro');
+  }
+
+  return(
+    <Button variant="contained" color={colorBoton} onClick={handleLoginClick}>{textoBoton}</Button>
+  );
+}
+
+function App({usuario, isLogin, setIsLogin}) {
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <img src="logo192.png"/>
+      <h1>Bienvenido a la app de UNRAF!!!</h1>
+      <Stack spacing={2} marginLeft={"590px"} direction="row">
+        <MyButton textoBoton="Boton 1"/>
+        <MyButtonMUI textoBoton="Perfil de Usuario" colorBoton="primary"/>
+      </Stack>
+      {isLogin?<p>Usuario {usuario.usuario} Logeado</p>:<p>Usuario {usuario.usuario} No Logeado</p>}
     </div>
   );
 }
 
-export default App;
+export {App, MyButton, MyButtonMUI};
